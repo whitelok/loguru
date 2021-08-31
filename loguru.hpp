@@ -708,11 +708,19 @@ namespace loguru
 	template<class T> inline Text format_value(const T&)                    { return textprintf("N/A");     }
 	template<>        inline Text format_value(const char& v)               { return textprintf(LOGURU_FMT(c),   v); }
 	template<>        inline Text format_value(const int& v)                { return textprintf(LOGURU_FMT(d),   v); }
+#if LOGURU_USE_FMTLIB
+	template<>        inline Text format_value(const unsigned int& v)       { return textprintf(LOGURU_FMT(d),   v); }
+	template<>        inline Text format_value(const long& v)               { return textprintf(LOGURU_FMT(d),  v); }
+	template<>        inline Text format_value(const unsigned long& v)      { return textprintf(LOGURU_FMT(d),  v); }
+	template<>        inline Text format_value(const long long& v)          { return textprintf(LOGURU_FMT(d), v); }
+	template<>        inline Text format_value(const unsigned long long& v) { return textprintf(LOGURU_FMT(d), v); }
+#else
 	template<>        inline Text format_value(const unsigned int& v)       { return textprintf(LOGURU_FMT(u),   v); }
-	template<>        inline Text format_value(const long& v)               { return textprintf(LOGURU_FMT(lu),  v); }
-	template<>        inline Text format_value(const unsigned long& v)      { return textprintf(LOGURU_FMT(ld),  v); }
-	template<>        inline Text format_value(const long long& v)          { return textprintf(LOGURU_FMT(llu), v); }
-	template<>        inline Text format_value(const unsigned long long& v) { return textprintf(LOGURU_FMT(lld), v); }
+	template<>        inline Text format_value(const long& v)               { return textprintf(LOGURU_FMT(ld),  v); }
+	template<>        inline Text format_value(const unsigned long& v)      { return textprintf(LOGURU_FMT(lu),  v); }
+	template<>        inline Text format_value(const long long& v)          { return textprintf(LOGURU_FMT(lld), v); }
+	template<>        inline Text format_value(const unsigned long long& v) { return textprintf(LOGURU_FMT(llu), v); }
+#endif
 	template<>        inline Text format_value(const float& v)              { return textprintf(LOGURU_FMT(f),   v); }
 	template<>        inline Text format_value(const double& v)             { return textprintf(LOGURU_FMT(f),   v); }
 
